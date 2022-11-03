@@ -8,17 +8,17 @@ import Html.Events exposing (onClick)
 
 
 type alias Model =
-    { count1 : Int
-    , count2 : Int
-    , count3 : Int
+    { count1 : Counter.Model
+    , count2 : Counter.Model
+    , count3 : Counter.Model
     }
 
 
 initialModel : Model
 initialModel =
-    { count1 = 0
-    , count2 = 0
-    , count3 = 0
+    { count1 = Counter.init
+    , count2 = Counter.init
+    , count3 = Counter.init
     }
 
 
@@ -29,7 +29,7 @@ type CounterId
 
 
 type Msg
-    = ChangeCounter CounterId Counter.UpdateType
+    = ChangeCounter CounterId Counter.Msg
 
 
 update : Msg -> Model -> Model
@@ -50,9 +50,12 @@ update msg model =
 view : Model -> Html Msg
 view model =
     div [ Attr.style "display" "flex" ]
-        [ Counter.view (ChangeCounter Counter1 Counter.IncrementCounter) (ChangeCounter Counter1 Counter.DecrementCounter) model.count1
-        , Counter.view (ChangeCounter Counter2 Counter.IncrementCounter) (ChangeCounter Counter2 Counter.DecrementCounter) model.count2
-        , Counter.view (ChangeCounter Counter3 Counter.IncrementCounter) (ChangeCounter Counter3 Counter.DecrementCounter) model.count3
+        [ Counter.view model.count1
+            |> Html.map (ChangeCounter Counter1)
+        , Counter.view model.count2
+            |> Html.map (ChangeCounter Counter2)
+        , Counter.view model.count3
+            |> Html.map (ChangeCounter Counter3)
         ]
 
 

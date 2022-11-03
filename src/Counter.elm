@@ -1,28 +1,37 @@
-module Counter exposing (UpdateType(..), update, view)
+module Counter exposing (Model, Msg(..), init, update, view)
 
 import Html exposing (Html, button, div, text)
 import Html.Events exposing (onClick)
 
 
-type UpdateType
-    = IncrementCounter
-    | DecrementCounter
+type alias Model =
+    Int
 
 
-update : UpdateType -> Int -> Int
-update updateType count =
-    case updateType of
-        IncrementCounter ->
+type Msg
+    = Increment
+    | Decrement
+
+
+init : Model
+init =
+    0
+
+
+update : Msg -> Model -> Model
+update msg count =
+    case msg of
+        Increment ->
             count + 1
 
-        DecrementCounter ->
+        Decrement ->
             count - 1
 
 
-view : msg -> msg -> Int -> Html msg
-view onIncrement onDecrement count =
+view : Model -> Html Msg
+view count =
     div []
-        [ button [ onClick onIncrement ] [ text "+1" ]
+        [ button [ onClick Increment ] [ text "+1" ]
         , div [] [ text <| String.fromInt count ]
-        , button [ onClick onDecrement ] [ text "-1" ]
+        , button [ onClick Decrement ] [ text "-1" ]
         ]
