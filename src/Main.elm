@@ -29,13 +29,13 @@ type CounterId
 
 
 type Msg
-    = ChangeCounter Counter.UpdateType CounterId
+    = ChangeCounter CounterId Counter.UpdateType
 
 
 update : Msg -> Model -> Model
 update msg model =
     case msg of
-        ChangeCounter updateType id ->
+        ChangeCounter id updateType ->
             case id of
                 Counter1 ->
                     { model | count1 = Counter.update updateType model.count1 }
@@ -50,9 +50,9 @@ update msg model =
 view : Model -> Html Msg
 view model =
     div [ Attr.style "display" "flex" ]
-        [ Counter.view (ChangeCounter Counter.IncrementCounter Counter1) (ChangeCounter Counter.DecrementCounter Counter1) model.count1
-        , Counter.view (ChangeCounter Counter.IncrementCounter Counter2) (ChangeCounter Counter.DecrementCounter Counter2) model.count2
-        , Counter.view (ChangeCounter Counter.IncrementCounter Counter3) (ChangeCounter Counter.DecrementCounter Counter3) model.count3
+        [ Counter.view (ChangeCounter Counter1 Counter.IncrementCounter) (ChangeCounter Counter1 Counter.DecrementCounter) model.count1
+        , Counter.view (ChangeCounter Counter2 Counter.IncrementCounter) (ChangeCounter Counter2 Counter.DecrementCounter) model.count2
+        , Counter.view (ChangeCounter Counter3 Counter.IncrementCounter) (ChangeCounter Counter3 Counter.DecrementCounter) model.count3
         ]
 
 
