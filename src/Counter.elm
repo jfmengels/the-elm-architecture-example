@@ -1,9 +1,22 @@
-module Counter exposing (view)
+module Counter exposing (UpdateType(..), update, view)
 
-import Browser
 import Html exposing (Html, button, div, text)
-import Html.Attributes as Attr
 import Html.Events exposing (onClick)
+
+
+type UpdateType
+    = IncrementCounter
+    | DecrementCounter
+
+
+update : UpdateType -> Int -> Int
+update updateType count =
+    case updateType of
+        IncrementCounter ->
+            count + 1
+
+        DecrementCounter ->
+            count - 1
 
 
 view : msg -> msg -> Int -> Html msg
