@@ -55,26 +55,18 @@ update msg model =
 view : Model -> Html Msg
 view model =
     div [ Attr.style "display" "flex" ]
-        [ counter model.count1
-        , div []
-            [ button [ onClick Increment2 ] [ text "+1" ]
-            , div [] [ text <| String.fromInt model.count2 ]
-            , button [ onClick Decrement2 ] [ text "-1" ]
-            ]
-        , div []
-            [ button [ onClick Increment3 ] [ text "+1" ]
-            , div [] [ text <| String.fromInt model.count3 ]
-            , button [ onClick Decrement3 ] [ text "-1" ]
-            ]
+        [ counter Increment1 Decrement1 model.count1
+        , counter Increment2 Decrement2 model.count2
+        , counter Increment3 Decrement3 model.count3
         ]
 
 
-counter : Int -> Html Msg
-counter count =
+counter : msg -> msg -> Int -> Html msg
+counter onIncrement onDecrement count =
     div []
-        [ button [ onClick Increment1 ] [ text "+1" ]
+        [ button [ onClick onIncrement ] [ text "+1" ]
         , div [] [ text <| String.fromInt count ]
-        , button [ onClick Decrement1 ] [ text "-1" ]
+        , button [ onClick onDecrement ] [ text "-1" ]
         ]
 
 
