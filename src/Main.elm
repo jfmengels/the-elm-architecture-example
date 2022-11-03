@@ -38,24 +38,39 @@ update msg model =
         Increment id ->
             case id of
                 Counter1 ->
-                    { model | count1 = model.count1 + 1 }
+                    { model | count1 = updateCounter IncrementCounter model.count1 }
 
                 Counter2 ->
-                    { model | count2 = model.count2 + 1 }
+                    { model | count2 = updateCounter IncrementCounter model.count2 }
 
                 Counter3 ->
-                    { model | count3 = model.count3 + 1 }
+                    { model | count3 = updateCounter IncrementCounter model.count3 }
 
         Decrement id ->
             case id of
                 Counter1 ->
-                    { model | count1 = model.count1 - 1 }
+                    { model | count1 = updateCounter DecrementCounter model.count1 }
 
                 Counter2 ->
-                    { model | count2 = model.count2 - 1 }
+                    { model | count2 = updateCounter DecrementCounter model.count2 }
 
                 Counter3 ->
-                    { model | count3 = model.count3 - 1 }
+                    { model | count3 = updateCounter DecrementCounter model.count3 }
+
+
+type UpdateType
+    = IncrementCounter
+    | DecrementCounter
+
+
+updateCounter : UpdateType -> Int -> Int
+updateCounter updateType count =
+    case updateType of
+        IncrementCounter ->
+            count + 1
+
+        DecrementCounter ->
+            count - 1
 
 
 view : Model -> Html Msg
