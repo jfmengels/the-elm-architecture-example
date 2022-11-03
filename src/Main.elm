@@ -22,42 +22,48 @@ initialModel =
 
 
 type Msg
-    = Increment1
-    | Decrement1
-    | Increment2
-    | Decrement2
-    | Increment3
-    | Decrement3
+    = Increment Int
+    | Decrement Int
 
 
 update : Msg -> Model -> Model
 update msg model =
     case msg of
-        Increment1 ->
-            { model | count1 = model.count1 + 1 }
+        Increment id ->
+            case id of
+                1 ->
+                    { model | count1 = model.count1 + 1 }
 
-        Decrement1 ->
-            { model | count1 = model.count1 - 1 }
+                2 ->
+                    { model | count2 = model.count2 + 1 }
 
-        Increment2 ->
-            { model | count2 = model.count2 + 1 }
+                3 ->
+                    { model | count3 = model.count3 + 1 }
 
-        Decrement2 ->
-            { model | count2 = model.count2 - 1 }
+                _ ->
+                    model
 
-        Increment3 ->
-            { model | count3 = model.count3 + 1 }
+        Decrement id ->
+            case id of
+                1 ->
+                    { model | count1 = model.count1 - 1 }
 
-        Decrement3 ->
-            { model | count3 = model.count3 - 1 }
+                2 ->
+                    { model | count2 = model.count2 - 1 }
+
+                3 ->
+                    { model | count3 = model.count3 - 1 }
+
+                _ ->
+                    model
 
 
 view : Model -> Html Msg
 view model =
     div [ Attr.style "display" "flex" ]
-        [ counter Increment1 Decrement1 model.count1
-        , counter Increment2 Decrement2 model.count2
-        , counter Increment3 Decrement3 model.count3
+        [ counter (Increment 1) (Decrement 1) model.count1
+        , counter (Increment 2) (Decrement 2) model.count2
+        , counter (Increment 3) (Decrement 3) model.count3
         ]
 
 
