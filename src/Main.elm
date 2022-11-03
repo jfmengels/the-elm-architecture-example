@@ -1,6 +1,7 @@
 module Main exposing (main)
 
 import Browser
+import Counter
 import Html exposing (Html, button, div, text)
 import Html.Attributes as Attr
 import Html.Events exposing (onClick)
@@ -64,18 +65,9 @@ updateCounter updateType count =
 view : Model -> Html Msg
 view model =
     div [ Attr.style "display" "flex" ]
-        [ counter (ChangeCounter IncrementCounter Counter1) (ChangeCounter DecrementCounter Counter1) model.count1
-        , counter (ChangeCounter IncrementCounter Counter2) (ChangeCounter DecrementCounter Counter2) model.count2
-        , counter (ChangeCounter IncrementCounter Counter3) (ChangeCounter DecrementCounter Counter3) model.count3
-        ]
-
-
-counter : msg -> msg -> Int -> Html msg
-counter onIncrement onDecrement count =
-    div []
-        [ button [ onClick onIncrement ] [ text "+1" ]
-        , div [] [ text <| String.fromInt count ]
-        , button [ onClick onDecrement ] [ text "-1" ]
+        [ Counter.view (ChangeCounter IncrementCounter Counter1) (ChangeCounter DecrementCounter Counter1) model.count1
+        , Counter.view (ChangeCounter IncrementCounter Counter2) (ChangeCounter DecrementCounter Counter2) model.count2
+        , Counter.view (ChangeCounter IncrementCounter Counter3) (ChangeCounter DecrementCounter Counter3) model.count3
         ]
 
 
