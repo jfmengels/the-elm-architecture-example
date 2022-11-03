@@ -21,9 +21,15 @@ initialModel =
     }
 
 
+type CounterId
+    = Counter1
+    | Counter2
+    | Counter3
+
+
 type Msg
-    = Increment Int
-    | Decrement Int
+    = Increment CounterId
+    | Decrement CounterId
 
 
 update : Msg -> Model -> Model
@@ -31,39 +37,33 @@ update msg model =
     case msg of
         Increment id ->
             case id of
-                1 ->
+                Counter1 ->
                     { model | count1 = model.count1 + 1 }
 
-                2 ->
+                Counter2 ->
                     { model | count2 = model.count2 + 1 }
 
-                3 ->
+                Counter3 ->
                     { model | count3 = model.count3 + 1 }
-
-                _ ->
-                    model
 
         Decrement id ->
             case id of
-                1 ->
+                Counter1 ->
                     { model | count1 = model.count1 - 1 }
 
-                2 ->
+                Counter2 ->
                     { model | count2 = model.count2 - 1 }
 
-                3 ->
+                Counter3 ->
                     { model | count3 = model.count3 - 1 }
-
-                _ ->
-                    model
 
 
 view : Model -> Html Msg
 view model =
     div [ Attr.style "display" "flex" ]
-        [ counter (Increment 1) (Decrement 1) model.count1
-        , counter (Increment 2) (Decrement 2) model.count2
-        , counter (Increment 3) (Decrement 3) model.count3
+        [ counter (Increment Counter1) (Decrement Counter1) model.count1
+        , counter (Increment Counter2) (Decrement Counter2) model.count2
+        , counter (Increment Counter3) (Decrement Counter3) model.count3
         ]
 
 
